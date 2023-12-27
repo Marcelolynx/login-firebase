@@ -1,5 +1,14 @@
 {
+  "name": "shopCasas",
+  "version": "1.0.0",
+  "description": "portal de anuncio de imoveis",
+  "main": "index.html",
+  "scripts": {
+    "build": "npm ci && npm run build",
+    "dev": "live-server public/"
+  },
   "dependencies": {
-    "firebase": "^10.7.1"
+    "firebase": "^10.7.1",
+    "live-server": "^1.2.1"
   }
 }
