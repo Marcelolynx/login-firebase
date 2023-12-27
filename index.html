@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <title>Login</title>
+</head>
+<body>
+    <div class="login-container">
+        <label for="login-button">Pressione para Login</label>
+        <button onclick="login()" id="login-button">Continuar com Google</button>
+    </div>
+
+<script>
+        // Seu objeto de configuração do Firebase
+        var firebaseConfig = {
+            apiKey: "AIzaSyAREq7IIMPWWOmm1vISHROfXD6kxHOa4No",
+            authDomain: "shopcasas-fd734.firebaseapp.com",
+            databaseURL: "https://shopcasas-fd734.firebaseio.com",
+            projectId: "shopcasas-fd734",
+            storageBucket: "shopcasas-fd734.appspot.com",
+            messagingSenderId: "40273432778",
+            appId: "1:40273432778:web:261d506ce1e031337e2433"
+        };
+
+        // Inicializa o Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Cria uma instância do GoogleAuthProvider
+        var provider = new firebase.auth.GoogleAuthProvider();
+        provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+
+        // Função login
+        function login() {
+            firebase.auth().signInWithPopup(provider)
+            .then(result => {
+                var token = result.credential.accessToken;
+                var user = result.user;
+
+                console.log(user)
+                console.log(token)
+                // Você pode adicionar mais lógica aqui, como redirecionar o usuário ou exibir informações
+            }).catch(error => {
+                // Tratamento de erros
+                console.error("Erro ao fazer login: ", error);
+            });
+        }
+    </script>
+   
+
+</body>
+</html>

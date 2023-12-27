@@ -1,0 +1,49 @@
+<html>
+
+<head>
+    <title>Fire</title>
+</head>
+
+<body>
+    <button onclick="login()">LOGIN COM GOOGLE</button>
+
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
+
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyAREq7IIMPWWOmm1vISHROfXD6kxHOa4No",
+            authDomain: "shopcasas-fd734.firebaseapp.com",
+            databaseURL: "https://shopcasas-fd734.firebaseio.com",
+            projectId: "shopcasas-fd734",
+            storageBucket: "shopcasas-fd734.appspot.com",
+            messagingSenderId: "40273432778",
+            appId: "1:40273432778:web:261d506ce1e031337e2433"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        var provider = new firebase.auth.GoogleAuthProvider();
+        provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+        function login() {
+            firebase.auth().signInWithPopup(provider).then(function (result) {
+                // ESTE NÃO É O JWT, É O TOKEN PARA OBTER INFOS DO GOOGLE
+                var token = result.credential.accessToken;
+                var user = result.user;
+                firebase.auth()
+                    .currentUser
+                    .getIdToken()
+                    .then((idToken) => {
+                        // ESTE É O TOKEN JWT QUE VAMOS MANDAR PARA API
+                        console.log(idToken);
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+            }).catch(function (error) {
+                // DEU RUIM
+                console.log(error);
+            });
+        }
+    </script>
+</body>
+
+</html>
