@@ -1,0 +1,39 @@
+<html>
+
+<head>
+    <title>Fire</title>
+</head>
+
+<body>
+
+    <h1 id="welcome-message">Olá, <span id="user-name"></span>!</h1>
+
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+        // Inicializa o Firebase com a configuração específica do seu projeto
+        var firebaseConfig = {
+            // Suas configurações do Firebase
+        };
+        firebase.initializeApp(firebaseConfig);
+    
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                // Usuário está logado, obtém o nome do usuário
+                const userName = user.displayName || 'Usuário Anônimo';
+    
+                // Atualiza a mensagem de boas-vindas com o nome do usuário
+                document.getElementById('user-name').textContent = userName;
+            } else {
+                // Usuário não está logado, redirecionar para a página de login
+                window.location.href = './index.html';
+            }
+        });
+    });
+    </script>
+    
+
+</body>
+
+</html>
